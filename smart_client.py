@@ -58,7 +58,8 @@ def _login():
     totp = pyotp.TOTP(os.environ["SMARTAPI_TOTP"]).now()
     data = sc.generateSession(os.environ["SMARTAPI_CLIENT"],
                               os.environ["SMARTAPI_PIN"], totp)
-    if not data or not data.get("status"):
+print("LOGIN RESPONSE:", data, flush=True)
+   if not data or not data.get("status"):
         raise RuntimeError(f"SmartAPI login failed: {data}")
     _smart = sc
     return sc
