@@ -64,7 +64,7 @@
 
   function stockRow(x) {
     return '<div class="row">' +
-      "<span><span class=\"sym\">" + esc(x.symbol) + "</span>" +
+    "<span>" + makeClickable(0, x.symbol) +
       '<div class="sub">H ' + inr(x.high || 0) + " \u00B7 L " + inr(x.low || 0) + "</div></span>" +
       '<span class="right"><span class="mono">' + inr(x.ltp) + "</span><br>" +
       chgSpan(x.chg) + "</span></div>";
