@@ -78,7 +78,9 @@
         '<span class="mono muted">' + vol(x.volume) + " sh</span></div>";
     }).join("");
   }
-
+function makeClickable(id, symbol) {
+  return `<span class="sym" onclick="window.open('https://www.tradingview.com/chart/?symbol=NSE:${symbol}','_blank')">${symbol}</span>`;
+}
   function renderAlerts(alerts) {
     $("alertCount").textContent = alerts.length ? alerts.length + " active" : "";
     if (!alerts.length) {
