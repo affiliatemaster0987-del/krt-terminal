@@ -52,18 +52,26 @@ def _login():
     global _smart
     if _smart is not None:
         return _smart
+
     from SmartApi import SmartConnect
     import pyotp
+
     sc = SmartConnect(api_key=os.environ["SMARTAPI_KEY"])
     totp = pyotp.TOTP(os.environ["SMARTAPI_TOTP"]).now()
-    data = sc.generateSession(os.environ["SMARTAPI_CLIENT"],
-                              os.environ["SMARTAPI_PIN"], totp)
-print("LOGIN RESPONSE:", data, flush=True)
-if not data or not data.get("status"):
-        raise RuntimeError(f"SmartAPI login failed: {data}")
-    _smart = sc
-    return sc
 
+    data = sc.generateSession(
+        os.environ["SMARTAPI_CLIENT"],
+        os.environ["SMARTAPI_PIN"],
+        totp
+    )
+
+print("LOGIN RESPONSE:", data, flush=True)
+
+if not data or not data.get("status"):
+    raise RuntimeError(f"SmartAPI login failed: {data}")
+
+_smart = sc
+return sc
 
 def _fetch_live():
     """Fetch LTP + prev close for the whole watchlist using Market Data API (FULL mode)."""
