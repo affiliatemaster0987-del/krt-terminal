@@ -41,9 +41,20 @@ CACHE_SECONDS = 3
 
 
 def _has_creds():
-    return all(os.environ.get(k) for k in
-               ("SMARTAPI_KEY", "SMARTAPI_CLIENT", "SMARTAPI_PIN", "SMARTAPI_TOTP"))
+    keys = (
+        "SMARTAPI_KEY",
+        "SMARTAPI_CLIENT",
+        "SMARTAPI_PIN",
+        "SMARTAPI_TOTP"
+    )
 
+    print(
+        "CREDS CHECK:",
+        {k: bool(os.environ.get(k)) for k in keys},
+        flush=True
+    )
+
+    return all(os.environ.get(k) for k in keys)
 
 _smart = None
 
