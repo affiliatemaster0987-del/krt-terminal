@@ -50,6 +50,7 @@ _smart = None
 def _login():
     """Login to SmartAPI once and reuse session."""
     global _smart
+
     if _smart is not None:
         return _smart
 
@@ -65,13 +66,14 @@ def _login():
         totp
     )
 
-print("LOGIN RESPONSE:", data, flush=True)
+    print("LOGIN RESPONSE:", data, flush=True)
 
-if not data or not data.get("status"):
-    raise RuntimeError(f"SmartAPI login failed: {data}")
+    if not data or not data.get("status"):
+        raise RuntimeError(f"SmartAPI login failed: {data}")
 
-_smart = sc
-return sc
+    _smart = sc
+    return sc
+
 
 def _fetch_live():
     """Fetch LTP + prev close for the whole watchlist using Market Data API (FULL mode)."""
