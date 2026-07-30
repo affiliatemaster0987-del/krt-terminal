@@ -59,7 +59,7 @@ def _login():
     data = sc.generateSession(os.environ["SMARTAPI_CLIENT"],
                               os.environ["SMARTAPI_PIN"], totp)
 print("LOGIN RESPONSE:", data, flush=True)
-   if not data or not data.get("status"):
+if not data or not data.get("status"):
         raise RuntimeError(f"SmartAPI login failed: {data}")
     _smart = sc
     return sc
